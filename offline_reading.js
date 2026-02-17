@@ -1,0 +1,1 @@
+// Funcionalidade para leitura offline\nfunction downloadEbook(ebookId) {\n    // Implementar lógica de download do eBook para leitura offline\n}

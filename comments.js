@@ -1,0 +1,1 @@
+// Funcionalidade para comentários e avaliações\nconst comments = [];\n\nfunction addComment(comment) {\n    comments.push(comment);\n    // Renderizar comentários na página\n}\n\ndocument.getElementById('commentButton').addEventListener('click', () => {\n    const comment = document.getElementById('commentInput').value;\n    addComment(comment);\n});

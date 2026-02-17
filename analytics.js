@@ -1,0 +1,1 @@
+// Scripts para Analytics\nfunction trackEvent(event) {\n    // Implementar lógica de análise para eventos\n}

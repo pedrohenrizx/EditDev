@@ -1,0 +1,1 @@
+// Funcionalidade de Notificações\nfunction sendNotification(message) {\n    const notification = document.createElement('div');\n    notification.textContent = message;\n    notification.className = 'notification';\n    document.body.appendChild(notification);\n    setTimeout(() => { notification.remove(); }, 3000);\n}

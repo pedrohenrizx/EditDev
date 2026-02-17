@@ -1,0 +1,1 @@
+// Funcionalidade de Favoritos\nconst favorites = [];\n\nfunction addFavorite(ebookId) {\n    favorites.push(ebookId);\n    // Implementar logic para salvar favoritos no banco de dados\n}

@@ -1,0 +1,1 @@
+// Integração com redes sociais\nfunction shareOnSocialMedia(ebookId) {\n    const url = `http://meusite.com/ebooks/${ebookId}`;\n    // Implementar lógica para compartilhar na rede social\n}

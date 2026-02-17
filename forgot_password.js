@@ -1,0 +1,1 @@
+document.getElementById('forgotPasswordButton').addEventListener('click', function() {\n    document.getElementById('forgotPasswordModal').classList.remove('hidden');\n});\n\ndocument.getElementById('closeForgotPasswordModal').addEventListener('click', function() {\n    document.getElementById('forgotPasswordModal').classList.add('hidden');\n});

@@ -1,0 +1,1 @@
+document.getElementById('searchButton').addEventListener('click', () => {\n    const query = document.getElementById('searchInput').value;\n    // Implement search functionality here\n})

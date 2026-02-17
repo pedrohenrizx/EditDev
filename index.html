@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Edit.Dev - Home</title>
+</head>
+<body class="bg-white text-gray-800">
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-white text-2xl">Edit.Dev</h1>
+            <div class="space-x-4">
+                <a href="#" class="text-white">Home</a>
+                <a href="#catalogo" class="text-white">Catálogo</a>
+                <a href="#sobre" class="text-white">Sobre</a>
+                <a href="#contato" class="text-white">Contato</a>
+                <button id="loginButton" class="text-white">Login/Cadastro</button>\n                <button id="forgotPasswordButton" class="text-white">Esqueci a Senha</button>
+                <button id="adminPanelButton" class="text-white">Painel</button>
+            </div>
+        </div>
+    </nav>
+    <main class="container mx-auto p-4">\n        <div id="searchBar">\n            <input type="text" id="searchInput" placeholder="Buscar eBooks" class="border p-2 w-full mb-2">\n            <button id="searchButton" class="bg-blue-500 text-white p-2">Buscar</button>\n        </div>
+        <section id="home">
+            <h2 class="text-2xl">Bem-vindo à Edit.Dev</h2>\n                <div class="menu-lateral">\n                    <ul>\n                        <li><a href="#home">Home</a></li>\n                        <li><a href="#catalogo">Catálogo</a></li>\n                        <li><a href="#sobre">Sobre</a></li>\n                        <li><a href="#contato">Contato</a></li>\n                    </ul>\n                </div>
+            <p>Acesse milhares de eBooks com nosso plano de assinatura.</p>
+        </section>
+        <section id="catalogo" class="mt-8">
+            <h2 class="text-2xl">Catálogo</h2>
+            <p>Explore nossos eBooks disponíveis.</p>
+        </section>
+        <section id="sobre" class="mt-8">
+            <h2 class="text-2xl">Sobre</h2>
+            <p>Saiba mais sobre a Edit.Dev e nossa missão.</p>
+        </section>
+        <section id="contato" class="mt-8">
+            <h2 class="text-2xl">Contato</h2>
+            <p>Entre em contato conosco.</p>
+        </section>
+    </main>
+    <div id="modal" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden">\n                <div class="flex items-center justify-center h-full">\n                    <div class="bg-white p-4 rounded shadow-lg">\n                        <h3 class="text-lg">Login ou Cadastro</h3>\n                        <input type="text" placeholder="Email" class="border p-2 w-full mb-2">\n                        <input type="password" placeholder="Senha" class="border p-2 w-full mb-2">\n                        <button class="bg-green-500 text-white p-2 w-full">Enviar</button>\n                        <button id="closeModal" class="mt-2 text-red-500">Fechar</button>\n                    </div>\n                </div>\n            </div>\n            <div id="forgotPasswordModal" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden">\n                <div class="flex items-center justify-center h-full">\n                    <div class="bg-white p-4 rounded shadow-lg">\n                        <h3 class="text-lg">Recuperar Senha</h3>\n                        <input type="text" placeholder="Email" class="border p-2 w-full mb-2">\n                        <button class="bg-green-500 text-white p-2 w-full">Enviar</button>\n                        <button id="closeForgotPasswordModal" class="mt-2 text-red-500">Fechar</button>\n                    </div>\n                </div>\n            </div>\n
+        <div class="flex items-center justify-center h-full">
+            <div class="bg-white p-4 rounded shadow-lg">
+                <h3 class="text-lg">Login ou Cadastro</h3>
+                <input type="text" placeholder="Email" class="border p-2 w-full mb-2">
+                <input type="password" placeholder="Senha" class="border p-2 w-full mb-2">
+                <button class="bg-green-500 text-white p-2 w-full">Enviar</button>
+                <button id="closeModal" class="mt-2 text-red-500">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const loginButton = document.getElementById('loginButton');
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+
+        loginButton.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
