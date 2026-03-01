@@ -1,66 +1,862 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <title>Edit.Dev - Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EditDev — Livraria Online de Ebooks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {} }
+    };
+  </script>
+  <style>
+    .section-enter { animation: fadeSlideIn 0.35s ease forwards; }
+    .section-exit  { animation: fadeSlideOut 0.25s ease forwards; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-12px); }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-800">
-    <nav class="bg-gray-800 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-white text-2xl">Edit.Dev</h1>
-            <div class="space-x-4">
-                <a href="#" class="text-white">Home</a>
-                <a href="#catalogo" class="text-white">Catálogo</a>
-                <a href="#sobre" class="text-white">Sobre</a>
-                <a href="#contato" class="text-white">Contato</a>
-                <button id="loginButton" class="text-white">Login/Cadastro</button>\n                <button id="forgotPasswordButton" class="text-white">Esqueci a Senha</button>
-                <button id="adminPanelButton" class="text-white">Painel</button>
-            </div>
-        </div>
-    </nav>
-    <main class="container mx-auto p-4">\n        <div id="searchBar">\n            <input type="text" id="searchInput" placeholder="Buscar eBooks" class="border p-2 w-full mb-2">\n            <button id="searchButton" class="bg-blue-500 text-white p-2">Buscar</button>\n        </div>
-        <section id="home">
-            <h2 class="text-2xl">Bem-vindo à Edit.Dev</h2>\n                <div class="menu-lateral">\n                    <ul>\n                        <li><a href="#home">Home</a></li>\n                        <li><a href="#catalogo">Catálogo</a></li>\n                        <li><a href="#sobre">Sobre</a></li>\n                        <li><a href="#contato">Contato</a></li>\n                    </ul>\n                </div>
-            <p>Acesse milhares de eBooks com nosso plano de assinatura.</p>
-        </section>
-        <section id="catalogo" class="mt-8">
-            <h2 class="text-2xl">Catálogo</h2>
-            <p>Explore nossos eBooks disponíveis.</p>
-        </section>
-        <section id="sobre" class="mt-8">
-            <h2 class="text-2xl">Sobre</h2>
-            <p>Saiba mais sobre a Edit.Dev e nossa missão.</p>
-        </section>
-        <section id="contato" class="mt-8">
-            <h2 class="text-2xl">Contato</h2>
-            <p>Entre em contato conosco.</p>
-        </section>
-    </main>
-    <div id="modal" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden">\n                <div class="flex items-center justify-center h-full">\n                    <div class="bg-white p-4 rounded shadow-lg">\n                        <h3 class="text-lg">Login ou Cadastro</h3>\n                        <input type="text" placeholder="Email" class="border p-2 w-full mb-2">\n                        <input type="password" placeholder="Senha" class="border p-2 w-full mb-2">\n                        <button class="bg-green-500 text-white p-2 w-full">Enviar</button>\n                        <button id="closeModal" class="mt-2 text-red-500">Fechar</button>\n                    </div>\n                </div>\n            </div>\n            <div id="forgotPasswordModal" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden">\n                <div class="flex items-center justify-center h-full">\n                    <div class="bg-white p-4 rounded shadow-lg">\n                        <h3 class="text-lg">Recuperar Senha</h3>\n                        <input type="text" placeholder="Email" class="border p-2 w-full mb-2">\n                        <button class="bg-green-500 text-white p-2 w-full">Enviar</button>\n                        <button id="closeForgotPasswordModal" class="mt-2 text-red-500">Fechar</button>\n                    </div>\n                </div>\n            </div>\n
-        <div class="flex items-center justify-center h-full">
-            <div class="bg-white p-4 rounded shadow-lg">
-                <h3 class="text-lg">Login ou Cadastro</h3>
-                <input type="text" placeholder="Email" class="border p-2 w-full mb-2">
-                <input type="password" placeholder="Senha" class="border p-2 w-full mb-2">
-                <button class="bg-green-500 text-white p-2 w-full">Enviar</button>
-                <button id="closeModal" class="mt-2 text-red-500">Fechar</button>
-            </div>
-        </div>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+
+<!-- ═══════════════════════  LOGIN SCREEN  ═══════════════════════ -->
+<div id="loginScreen" class="flex flex-col items-center justify-center min-h-screen">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-10 flex flex-col items-center gap-6 max-w-sm w-full mx-4">
+    <h1 class="text-3xl font-bold text-indigo-600 dark:text-indigo-400">EditDev</h1>
+    <p class="text-gray-500 dark:text-gray-300 text-center">Sua livraria digital de ebooks</p>
+    <button id="btnGoogleLogin"
+      class="flex items-center gap-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-6 py-3 shadow hover:shadow-md transition font-medium text-gray-700 dark:text-gray-100">
+      <svg class="w-5 h-5" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Entrar com Google
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════  APP SHELL  ═══════════════════════ -->
+<div id="appShell" class="hidden">
+
+  <!-- NAVBAR -->
+  <nav class="bg-indigo-700 dark:bg-gray-800 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+      <span class="text-xl font-bold tracking-tight">📚 EditDev</span>
+      <div class="flex flex-wrap items-center gap-1 text-sm font-medium">
+        <button class="nav-btn px-3 py-1.5 rounded hover:bg-indigo-600 dark:hover:bg-gray-700 transition" data-section="home">Início</button>
+        <button class="nav-btn px-3 py-1.5 rounded hover:bg-indigo-600 dark:hover:bg-gray-700 transition" data-section="library">Biblioteca</button>
+        <button class="nav-btn px-3 py-1.5 rounded hover:bg-indigo-600 dark:hover:bg-gray-700 transition" data-section="dashboard">Meu Painel</button>
+        <button class="nav-btn px-3 py-1.5 rounded hover:bg-indigo-600 dark:hover:bg-gray-700 transition" data-section="contact">Contato</button>
+        <button id="btnAdminNav" class="px-3 py-1.5 rounded hover:bg-indigo-600 dark:hover:bg-gray-700 transition">Admin</button>
+        <button id="btnThemeToggle" class="px-3 py-1.5 rounded hover:bg-indigo-600 dark:hover:bg-gray-700 transition" title="Alternar tema">🌙</button>
+        <button id="btnLogout" class="px-3 py-1.5 rounded bg-red-500 hover:bg-red-600 transition">Sair</button>
+      </div>
     </div>
-    <script>
-        const loginButton = document.getElementById('loginButton');
-        const modal = document.getElementById('modal');
-        const closeModal = document.getElementById('closeModal');
+  </nav>
 
-        loginButton.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-        });
+  <!-- SECTIONS WRAPPER -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
 
-        closeModal.addEventListener('click', () => {
-            modal.classList.add('hidden');
-        });
-    </script>
+    <!-- ── HOME ── -->
+    <section id="section-home" class="section-enter">
+      <div id="homeWelcome" class="flex items-center gap-4 mb-8 bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
+        <img id="homeAvatar" src="" alt="Avatar" class="w-16 h-16 rounded-full object-cover border-4 border-indigo-400" />
+        <div>
+          <h2 class="text-2xl font-bold">Olá, <span id="homeName"></span>! 👋</h2>
+          <p class="text-gray-500 dark:text-gray-400 text-sm">Bem-vindo à sua livraria digital</p>
+        </div>
+      </div>
+      <h3 class="text-xl font-semibold mb-4">🆕 Lançamentos Recentes</h3>
+      <div id="homeRecent" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10"></div>
+      <h3 class="text-xl font-semibold mb-4">⭐ Recomendados para Você</h3>
+      <div id="homeRecommended" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- ── LIBRARY ── -->
+    <section id="section-library" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">📚 Biblioteca</h2>
+      <div class="flex flex-wrap gap-3 mb-6">
+        <select id="filterCategory" class="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm">
+          <option value="">Todas as categorias</option>
+        </select>
+        <select id="filterPlan" class="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm">
+          <option value="">Todos os planos</option>
+          <option value="basic">Basic</option>
+          <option value="pro">Pro</option>
+        </select>
+      </div>
+      <div id="libraryGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- ── DASHBOARD ── -->
+    <section id="section-dashboard" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">👤 Meu Painel</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex items-center gap-4">
+          <img id="dashAvatar" src="" alt="" class="w-20 h-20 rounded-full object-cover border-4 border-indigo-400" />
+          <div>
+            <p class="text-xl font-bold" id="dashName"></p>
+            <p class="text-gray-500 dark:text-gray-400 text-sm" id="dashEmail"></p>
+            <span id="dashPlanBadge" class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-semibold"></span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
+          <p class="font-semibold mb-2">Downloads este mês</p>
+          <div class="flex items-end gap-2">
+            <span class="text-4xl font-bold text-indigo-600 dark:text-indigo-400" id="dashDownloadsUsed">0</span>
+            <span class="text-gray-400 text-lg mb-1" id="dashDownloadsLimit">/ 2</span>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Downloads restantes: <span id="dashDownloadsLeft" class="font-semibold"></span></p>
+          <p class="text-xs text-gray-400 mt-3">* Plano Free: máx 2 downloads/mês</p>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 mt-6">
+        <h3 class="text-lg font-semibold mb-4">📥 Histórico de Downloads</h3>
+        <div id="dashHistory" class="text-sm text-gray-500 dark:text-gray-400">Carregando...</div>
+      </div>
+      <div class="mt-4 text-sm text-gray-500 dark:text-gray-400" id="dashContactNote"></div>
+    </section>
+
+    <!-- ── CONTACT ── -->
+    <section id="section-contact" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">📬 Contato</h2>
+      <div id="contactDayWarning" class="hidden mb-6 bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 text-yellow-800 dark:text-yellow-200 p-4 rounded"></div>
+      <form id="contactForm" class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col gap-4 max-w-lg">
+        <div>
+          <label class="block text-sm font-medium mb-1">Nome</label>
+          <input id="contactName" type="text" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Seu nome" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input id="contactEmail" type="email" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="seu@email.com" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Mensagem</label>
+          <textarea id="contactMessage" rows="4" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Digite sua mensagem..."></textarea>
+        </div>
+        <button id="btnContactSubmit" type="submit"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+          Enviar Mensagem
+        </button>
+        <p id="contactFeedback" class="text-sm hidden"></p>
+      </form>
+    </section>
+
+    <!-- ── ADMIN ── -->
+    <section id="section-admin" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">🔑 Painel Admin</h2>
+      <div id="adminContent">
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold mb-4">➕ Adicionar Ebook</h3>
+          <form id="adminAddForm" class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 grid md:grid-cols-2 gap-4 max-w-2xl">
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium mb-1">Título</label>
+              <input id="addTitle" type="text" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium mb-1">Descrição</label>
+              <textarea id="addDescription" rows="3" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Plano</label>
+              <select id="addPlan" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2">
+                <option value="basic">Basic</option>
+                <option value="pro">Pro</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Categoria</label>
+              <input id="addCategory" type="text" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="ex: Programação" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Imagem de Capa</label>
+              <input id="addCover" type="file" accept="image/*" class="w-full text-sm" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Arquivo do Ebook (PDF/ePub)</label>
+              <input id="addFile" type="file" accept=".pdf,.epub" class="w-full text-sm" />
+            </div>
+            <div class="md:col-span-2">
+              <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition">
+                Salvar Ebook
+              </button>
+              <span id="addFeedback" class="ml-4 text-sm"></span>
+            </div>
+          </form>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">📋 Ebooks Cadastrados</h3>
+          <div id="adminEbookList" class="space-y-3 max-w-2xl"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ═══════════════  ADMIN PASSWORD MODAL  ═══════════════ -->
+<div id="adminModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 flex flex-col gap-4 w-80">
+    <h3 class="text-xl font-bold">🔐 Acesso Admin</h3>
+    <input id="adminPasswordInput" type="password" placeholder="Senha do admin"
+      class="rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+    <div class="flex gap-3">
+      <button id="btnAdminConfirm" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition">Confirmar</button>
+      <button id="btnAdminCancel" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold py-2 rounded-lg transition">Cancelar</button>
+    </div>
+    <p id="adminModalError" class="text-red-500 text-sm hidden">Senha incorreta.</p>
+  </div>
+</div>
+
+<!-- ═══════════════  EDIT EBOOK MODAL  ═══════════════ -->
+<div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 flex flex-col gap-4 w-full max-w-lg mx-4 overflow-y-auto max-h-[90vh]">
+    <h3 class="text-xl font-bold">✏️ Editar Ebook</h3>
+    <input id="editId" type="hidden" />
+    <div>
+      <label class="block text-sm font-medium mb-1">Título</label>
+      <input id="editTitle" type="text" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2" />
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1">Descrição</label>
+      <textarea id="editDescription" rows="3" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2"></textarea>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">Plano</label>
+        <select id="editPlan" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2">
+          <option value="basic">Basic</option>
+          <option value="pro">Pro</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Categoria</label>
+        <input id="editCategory" type="text" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-3 py-2" />
+      </div>
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1">Nova Imagem de Capa (opcional)</label>
+      <input id="editCover" type="file" accept="image/*" class="w-full text-sm" />
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1">Novo Arquivo Ebook (opcional)</label>
+      <input id="editFile" type="file" accept=".pdf,.epub" class="w-full text-sm" />
+    </div>
+    <div class="flex gap-3">
+      <button id="btnEditSave" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition">Salvar</button>
+      <button id="btnEditCancel" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold py-2 rounded-lg transition">Cancelar</button>
+    </div>
+    <p id="editFeedback" class="text-sm hidden"></p>
+  </div>
+</div>
+
+<!-- ═══════════════  READER MODAL  ═══════════════ -->
+<div id="readerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 flex flex-col gap-4 w-full max-w-2xl mx-4 max-h-[90vh]">
+    <div class="flex justify-between items-center">
+      <h3 id="readerTitle" class="text-xl font-bold"></h3>
+      <button id="btnReaderClose" class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+    </div>
+    <div id="readerContent" class="overflow-y-auto text-sm text-gray-700 dark:text-gray-300 leading-relaxed flex-1 min-h-40"></div>
+  </div>
+</div>
+
+<!-- ═══════════════  FIREBASE + APP LOGIC  ═══════════════ -->
+<script type="module">
+  import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAnalytics }         from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+  import {
+    getAuth, GoogleAuthProvider,
+    signInWithPopup, signOut, onAuthStateChanged
+  }                               from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getDatabase, ref, set, get, push, update, remove, onValue, child
+  }                               from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  import {
+    getStorage, ref as sRef,
+    uploadBytes, getDownloadURL, deleteObject
+  }                               from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+  // ── Firebase init ──────────────────────────────────────────────
+  const firebaseConfig = {
+    apiKey: "AIzaSyC8TFitMZgSTmxTTIaeCznwN2CpzWoQ6Bc",
+    authDomain: "booksdev-3de79.firebaseapp.com",
+    databaseURL: "https://booksdev-3de79-default-rtdb.firebaseio.com",
+    projectId: "booksdev-3de79",
+    storageBucket: "booksdev-3de79.firebasestorage.app",
+    messagingSenderId: "39273829148",
+    appId: "1:39273829148:web:cbb6d02d4597025e09a0d9",
+    measurementId: "G-5Q3BCRZEBZ"
+  };
+  const app       = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth      = getAuth(app);
+  const db        = getDatabase(app);
+  const storage   = getStorage(app);
+
+  // ── State ──────────────────────────────────────────────────────
+  let currentUser     = null;
+  let userData        = null;
+  let adminUnlocked   = false;
+  let activeSection   = 'home';
+  let allEbooks       = {};
+
+  // ── DOM refs ───────────────────────────────────────────────────
+  const loginScreen  = document.getElementById('loginScreen');
+  const appShell     = document.getElementById('appShell');
+
+  // ── Helpers ────────────────────────────────────────────────────
+  function planLabel(plan) {
+    return plan === 'pro' ? '🔷 Pro' : '🟢 Free';
+  }
+  function planColor(plan) {
+    return plan === 'pro'
+      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+      : 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300';
+  }
+  function escapeHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function ebookCard(id, ebook, forHome = false) {
+    const safeTitle = escapeHtml(ebook.title);
+    const safeDesc  = escapeHtml(ebook.description);
+    const safeCat   = escapeHtml(ebook.category);
+    const safePlan  = escapeHtml(ebook.plan);
+    const coverImg  = ebook.coverURL
+      ? `<img src="${escapeHtml(ebook.coverURL)}" alt="Capa" class="w-full h-40 object-cover rounded-t-xl" />`
+      : `<div class="w-full h-40 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-t-xl flex items-center justify-center text-white text-4xl">📖</div>`;
+    const planBadge = `<span class="text-xs px-2 py-0.5 rounded-full font-semibold ${planColor(ebook.plan)}">${safePlan}</span>`;
+    let actions = '';
+    if (!forHome) {
+      actions = `
+        <div class="flex gap-2 mt-2 flex-wrap">
+          <button class="btn-read text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 px-3 py-1 rounded-lg hover:bg-indigo-200 transition" data-id="${escapeHtml(id)}">📖 Ler</button>
+          <button class="btn-download text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-lg hover:bg-emerald-200 transition" data-id="${escapeHtml(id)}">⬇ Download</button>
+        </div>`;
+    }
+    return `
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition overflow-hidden flex flex-col">
+        ${coverImg}
+        <div class="p-3 flex-1 flex flex-col">
+          <p class="font-semibold text-sm line-clamp-2 mb-1">${safeTitle}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-2">${safeDesc}</p>
+          <div class="mt-auto flex items-center gap-2 flex-wrap">
+            ${planBadge}
+            ${ebook.category ? `<span class="text-xs text-gray-400">${safeCat}</span>` : ''}
+          </div>
+          ${actions}
+        </div>
+      </div>`;
+  }
+
+  // ── Section navigation ─────────────────────────────────────────
+  const sections = ['home','library','dashboard','contact','admin'];
+  function showSection(id) {
+    const current = document.getElementById('section-' + activeSection);
+    const next    = document.getElementById('section-' + id);
+    if (activeSection === id || !next) return;
+
+    current.classList.add('section-exit');
+    setTimeout(() => {
+      current.classList.add('hidden');
+      current.classList.remove('section-exit');
+      next.classList.remove('hidden');
+      next.classList.add('section-enter');
+      setTimeout(() => next.classList.remove('section-enter'), 400);
+    }, 250);
+
+    activeSection = id;
+    if (id === 'home')      renderHome();
+    if (id === 'library')   renderLibrary();
+    if (id === 'dashboard') renderDashboard();
+    if (id === 'contact')   renderContact();
+    if (id === 'admin')     renderAdmin();
+  }
+
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => showSection(btn.dataset.section));
+  });
+
+  // ── Dark mode ──────────────────────────────────────────────────
+  const html = document.documentElement;
+  const themeBtn = document.getElementById('btnThemeToggle');
+  function applyTheme(dark) {
+    dark ? html.classList.add('dark') : html.classList.remove('dark');
+    themeBtn.textContent = dark ? '☀️' : '🌙';
+    localStorage.setItem('editdev_dark', dark ? '1' : '0');
+  }
+  applyTheme(localStorage.getItem('editdev_dark') === '1');
+  themeBtn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+  // ── Auth ───────────────────────────────────────────────────────
+  const provider = new GoogleAuthProvider();
+  document.getElementById('btnGoogleLogin').addEventListener('click', () => {
+    signInWithPopup(auth, provider).catch(err => alert('Erro ao fazer login: ' + err.message));
+  });
+  document.getElementById('btnLogout').addEventListener('click', () => {
+    signOut(auth);
+    adminUnlocked = false;
+  });
+
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      currentUser = user;
+      loginScreen.classList.add('hidden');
+      appShell.classList.remove('hidden');
+      await ensureUserRecord(user);
+      await loadUserData(user.uid);
+      await loadEbooks();
+      renderHome();
+    } else {
+      currentUser = null;
+      userData    = null;
+      appShell.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+    }
+  });
+
+  async function ensureUserRecord(user) {
+    const userRef = ref(db, `users/${user.uid}`);
+    const snap = await get(userRef);
+    const now = new Date();
+    const currentYearMonth = now.getFullYear() * 100 + now.getMonth();
+    if (!snap.exists()) {
+      await set(userRef, {
+        name: user.displayName || '',
+        email: user.email || '',
+        photoURL: user.photoURL || '',
+        plan: 'free',
+        downloadsThisMonth: 0,
+        lastResetMonth: currentYearMonth,
+        downloadHistory: []
+      });
+    } else {
+      const data = snap.val();
+      if ((data.lastResetMonth || 0) !== currentYearMonth) {
+        await update(userRef, { downloadsThisMonth: 0, lastResetMonth: currentYearMonth });
+      }
+    }
+  }
+
+  async function loadUserData(uid) {
+    const snap = await get(ref(db, `users/${uid}`));
+    userData = snap.val();
+  }
+
+  async function loadEbooks() {
+    const snap = await get(ref(db, 'ebooks'));
+    allEbooks = snap.exists() ? snap.val() : {};
+  }
+
+  // ── HOME ───────────────────────────────────────────────────────
+  function renderHome() {
+    if (!currentUser) return;
+    document.getElementById('homeName').textContent = currentUser.displayName || 'Usuário';
+    document.getElementById('homeAvatar').src = currentUser.photoURL || '';
+
+    const ids = Object.keys(allEbooks).sort((a, b) => (allEbooks[b].createdAt || 0) - (allEbooks[a].createdAt || 0));
+    const recent      = ids.slice(0, 4);
+    const recommended = ids.slice(-4).reverse();
+
+    document.getElementById('homeRecent').innerHTML =
+      recent.length ? recent.map(id => ebookCard(id, allEbooks[id], true)).join('') : '<p class="text-gray-400 col-span-4">Nenhum ebook disponível.</p>';
+    document.getElementById('homeRecommended').innerHTML =
+      recommended.length ? recommended.map(id => ebookCard(id, allEbooks[id], true)).join('') : '<p class="text-gray-400 col-span-4">Nenhum ebook disponível.</p>';
+  }
+
+  // ── LIBRARY ────────────────────────────────────────────────────
+  function renderLibrary() {
+    populateCategoryFilter();
+    applyLibraryFilters();
+
+    document.getElementById('filterCategory').onchange = applyLibraryFilters;
+    document.getElementById('filterPlan').onchange     = applyLibraryFilters;
+  }
+
+  function populateCategoryFilter() {
+    const cats = new Set();
+    Object.values(allEbooks).forEach(e => { if (e.category) cats.add(e.category); });
+    const sel = document.getElementById('filterCategory');
+    sel.innerHTML = '<option value="">Todas as categorias</option>';
+    cats.forEach(c => sel.insertAdjacentHTML('beforeend', `<option value="${c}">${c}</option>`));
+  }
+
+  function applyLibraryFilters() {
+    const catFilter  = document.getElementById('filterCategory').value;
+    const planFilter = document.getElementById('filterPlan').value;
+    const grid = document.getElementById('libraryGrid');
+    const ids = Object.keys(allEbooks).filter(id => {
+      const e = allEbooks[id];
+      return (!catFilter || e.category === catFilter) && (!planFilter || e.plan === planFilter);
+    });
+    grid.innerHTML = ids.length
+      ? ids.map(id => ebookCard(id, allEbooks[id])).join('')
+      : '<p class="text-gray-400 col-span-4">Nenhum ebook encontrado.</p>';
+
+    grid.querySelectorAll('.btn-read').forEach(btn => btn.addEventListener('click', () => openReader(btn.dataset.id)));
+    grid.querySelectorAll('.btn-download').forEach(btn => btn.addEventListener('click', () => handleDownload(btn.dataset.id)));
+  }
+
+  // ── READER ─────────────────────────────────────────────────────
+  function openReader(ebookId) {
+    const ebook = allEbooks[ebookId];
+    if (!ebook) return;
+    const modal = document.getElementById('readerModal');
+    document.getElementById('readerTitle').textContent = ebook.title;
+    const isFree = !userData || userData.plan === 'free';
+    const isPro  = ebook.plan === 'pro';
+    if (isFree && isPro) {
+      document.getElementById('readerContent').innerHTML =
+        '<p class="text-yellow-600 dark:text-yellow-400">Este ebook requer plano Pro. Faça upgrade para acessar o conteúdo completo.</p>';
+    } else if (ebook.fileURL) {
+      const iframeTitle = escapeHtml(ebook.title);
+      const iframeSrc   = escapeHtml(ebook.fileURL);
+      document.getElementById('readerContent').innerHTML =
+        `${isFree ? '<p class="mb-3 text-xs text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/30 px-3 py-2 rounded">⚠️ Plano Free: acesso de visualização. Faça upgrade para baixar e acessar sem restrições.</p>' : ''}
+        <iframe src="${iframeSrc}" class="w-full h-96 rounded border border-gray-200 dark:border-gray-600" title="${iframeTitle}"></iframe>`;
+    } else {
+      document.getElementById('readerContent').innerHTML = '<p class="text-gray-500">Arquivo não disponível.</p>';
+    }
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+  document.getElementById('btnReaderClose').addEventListener('click', () => {
+    const modal = document.getElementById('readerModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  });
+
+  // ── DOWNLOAD ───────────────────────────────────────────────────
+  async function handleDownload(ebookId) {
+    const ebook = allEbooks[ebookId];
+    if (!ebook) return;
+    if (!userData) { alert('Faça login para baixar.'); return; }
+
+    const isPro  = ebook.plan === 'pro';
+    const isFree = userData.plan === 'free';
+    if (isFree && isPro) { alert('Este ebook requer plano Pro.'); return; }
+    if (isFree && userData.downloadsThisMonth >= 2) {
+      alert('Você atingiu o limite de 2 downloads por mês do plano Free.'); return;
+    }
+    if (!ebook.fileURL) { alert('Arquivo não disponível.'); return; }
+
+    // Update counter + history
+    const uid = currentUser.uid;
+    const newCount = (userData.downloadsThisMonth || 0) + 1;
+    const history  = Array.isArray(userData.downloadHistory) ? [...userData.downloadHistory] : [];
+    if (!history.includes(ebookId)) history.push(ebookId);
+    await update(ref(db, `users/${uid}`), {
+      downloadsThisMonth: newCount,
+      downloadHistory: history
+    });
+    userData.downloadsThisMonth = newCount;
+    userData.downloadHistory    = history;
+
+    const a = document.createElement('a');
+    a.href = ebook.fileURL;
+    a.download = ebook.title || 'ebook';
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.click();
+  }
+
+  // ── DASHBOARD ──────────────────────────────────────────────────
+  async function renderDashboard() {
+    if (!currentUser || !userData) return;
+    await loadUserData(currentUser.uid);
+
+    document.getElementById('dashName').textContent  = currentUser.displayName || 'Usuário';
+    document.getElementById('dashEmail').textContent = currentUser.email || '';
+    document.getElementById('dashAvatar').src        = currentUser.photoURL || '';
+
+    const plan   = userData.plan || 'free';
+    const badge  = document.getElementById('dashPlanBadge');
+    badge.textContent = plan === 'pro' ? '🔷 Plano Pro' : '🟢 Plano Free';
+    badge.className   = `mt-2 inline-block px-3 py-1 rounded-full text-xs font-semibold ${planColor(plan)}`;
+
+    const used  = userData.downloadsThisMonth || 0;
+    const limit = plan === 'pro' ? '∞' : '2';
+    const left  = plan === 'pro' ? '∞' : Math.max(0, 2 - used);
+    document.getElementById('dashDownloadsUsed').textContent  = used;
+    document.getElementById('dashDownloadsLimit').textContent = `/ ${limit}`;
+    document.getElementById('dashDownloadsLeft').textContent  = left;
+
+    // History
+    const history = Array.isArray(userData.downloadHistory) ? userData.downloadHistory : Object.values(userData.downloadHistory || {});
+    const histDiv = document.getElementById('dashHistory');
+    if (!history || history.length === 0) {
+      histDiv.innerHTML = '<p>Nenhum download ainda.</p>';
+    } else {
+      histDiv.innerHTML = history.map(id => {
+        const e = allEbooks[id];
+        return e ? `<div class="flex items-center gap-2 py-1 border-b border-gray-100 dark:border-gray-700">
+          <span class="text-lg">📖</span>
+          <span>${escapeHtml(e.title)}</span>
+          <span class="text-xs text-gray-400 ml-auto">${escapeHtml(e.plan)}</span>
+        </div>` : '';
+      }).join('');
+    }
+
+    // Contact availability note
+    const day = new Date().getDay();
+    const contactNote = document.getElementById('dashContactNote');
+    if (day === 1 || day === 3) {
+      contactNote.innerHTML = '✅ O formulário de contato está <strong>disponível hoje</strong> (segunda ou quarta).';
+      contactNote.className = 'mt-4 text-sm text-green-600 dark:text-green-400';
+    } else {
+      contactNote.innerHTML = '⚠️ O formulário de contato está disponível apenas às <strong>segundas</strong> e <strong>quartas-feiras</strong>.';
+      contactNote.className = 'mt-4 text-sm text-yellow-600 dark:text-yellow-400';
+    }
+  }
+
+  // ── CONTACT ────────────────────────────────────────────────────
+  function renderContact() {
+    const day      = new Date().getDay();
+    const allowed  = day === 1 || day === 3;
+    const warning  = document.getElementById('contactDayWarning');
+    const submitBtn = document.getElementById('btnContactSubmit');
+    const dayNames = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+    if (!allowed) {
+      warning.classList.remove('hidden');
+      warning.textContent = `O formulário de contato está disponível apenas às segundas e quartas-feiras. Hoje é ${dayNames[day]}.`;
+      submitBtn.disabled = true;
+    } else {
+      warning.classList.add('hidden');
+      submitBtn.disabled = false;
+    }
+
+    if (currentUser) {
+      document.getElementById('contactName').value  = currentUser.displayName || '';
+      document.getElementById('contactEmail').value = currentUser.email || '';
+    }
+  }
+
+  document.getElementById('contactForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const day     = new Date().getDay();
+    const allowed = day === 1 || day === 3;
+    if (!allowed) { alert('Formulário disponível apenas às segundas e quartas-feiras.'); return; }
+
+    const name    = document.getElementById('contactName').value.trim();
+    const email   = document.getElementById('contactEmail').value.trim();
+    const message = document.getElementById('contactMessage').value.trim();
+    if (!name || !email || !message) { alert('Preencha todos os campos.'); return; }
+
+    const uid       = currentUser.uid;
+    const timestamp = Date.now();
+    await set(ref(db, `messages/${uid}/${timestamp}`), { name, email, message, sentAt: timestamp });
+
+    const fb = document.getElementById('contactFeedback');
+    fb.textContent = '✅ Mensagem enviada com sucesso!';
+    fb.className   = 'text-sm text-green-600 dark:text-green-400';
+    fb.classList.remove('hidden');
+    document.getElementById('contactMessage').value = '';
+    setTimeout(() => fb.classList.add('hidden'), 4000);
+  });
+
+  // ── ADMIN MODAL ────────────────────────────────────────────────
+  const adminModal = document.getElementById('adminModal');
+  document.getElementById('btnAdminNav').addEventListener('click', () => {
+    if (adminUnlocked) { showSection('admin'); return; }
+    adminModal.classList.remove('hidden');
+    adminModal.classList.add('flex');
+    document.getElementById('adminPasswordInput').value = '';
+    document.getElementById('adminModalError').classList.add('hidden');
+  });
+  document.getElementById('btnAdminCancel').addEventListener('click', () => {
+    adminModal.classList.add('hidden');
+    adminModal.classList.remove('flex');
+  });
+  document.getElementById('btnAdminConfirm').addEventListener('click', async () => {
+    const entered = document.getElementById('adminPasswordInput').value;
+    try {
+      const snap = await get(ref(db, 'adminConfig/password'));
+      if (snap.exists() && snap.val() === entered) {
+        adminUnlocked = true;
+        adminModal.classList.add('hidden');
+        adminModal.classList.remove('flex');
+        showSection('admin');
+      } else {
+        document.getElementById('adminModalError').classList.remove('hidden');
+      }
+    } catch {
+      document.getElementById('adminModalError').textContent = 'Erro ao verificar senha.';
+      document.getElementById('adminModalError').classList.remove('hidden');
+    }
+  });
+
+  // ── ADMIN PANEL ────────────────────────────────────────────────
+  function renderAdmin() {
+    if (!adminUnlocked) { showSection('home'); return; }
+    renderAdminList();
+  }
+
+  function renderAdminList() {
+    const list = document.getElementById('adminEbookList');
+    const ids  = Object.keys(allEbooks);
+    if (!ids.length) { list.innerHTML = '<p class="text-gray-400">Nenhum ebook cadastrado.</p>'; return; }
+    list.innerHTML = ids.map(id => {
+      const e = allEbooks[id];
+      return `<div class="flex items-center gap-3 bg-white dark:bg-gray-800 rounded-xl shadow p-3">
+        ${e.coverURL ? `<img src="${escapeHtml(e.coverURL)}" class="w-12 h-16 object-cover rounded" />` : '<div class="w-12 h-16 bg-indigo-200 dark:bg-indigo-900 rounded flex items-center justify-center text-2xl">📖</div>'}
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-sm truncate">${escapeHtml(e.title)}</p>
+          <p class="text-xs text-gray-400">${escapeHtml(e.plan)} · ${escapeHtml(e.category || 'sem categoria')}</p>
+        </div>
+        <button class="btn-admin-edit text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-3 py-1.5 rounded-lg hover:bg-yellow-200 transition" data-id="${escapeHtml(id)}">✏️ Editar</button>
+        <button class="btn-admin-delete text-xs bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 px-3 py-1.5 rounded-lg hover:bg-red-200 transition" data-id="${escapeHtml(id)}">🗑 Deletar</button>
+      </div>`;
+    }).join('');
+
+    list.querySelectorAll('.btn-admin-edit').forEach(btn => btn.addEventListener('click', () => openEditModal(btn.dataset.id)));
+    list.querySelectorAll('.btn-admin-delete').forEach(btn => btn.addEventListener('click', () => confirmDeleteEbook(btn.dataset.id)));
+  }
+
+  // ADD EBOOK
+  document.getElementById('adminAddForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const feedback = document.getElementById('addFeedback');
+    feedback.textContent = 'Enviando...';
+    feedback.className   = 'ml-4 text-sm text-gray-500';
+
+    const title       = document.getElementById('addTitle').value.trim();
+    const description = document.getElementById('addDescription').value.trim();
+    const plan        = document.getElementById('addPlan').value;
+    const category    = document.getElementById('addCategory').value.trim();
+    const coverFile   = document.getElementById('addCover').files[0];
+    const ebookFile   = document.getElementById('addFile').files[0];
+
+    if (!title) { feedback.textContent = 'Título obrigatório.'; return; }
+
+    try {
+      let coverURL = '';
+      let fileURL  = '';
+      let coverPath = '';
+      let filePath  = '';
+
+      if (coverFile) {
+        coverPath = `covers/${Date.now()}_${coverFile.name}`;
+        const coverRef = sRef(storage, coverPath);
+        await uploadBytes(coverRef, coverFile);
+        coverURL = await getDownloadURL(coverRef);
+      }
+      if (ebookFile) {
+        filePath = `basic/${Date.now()}_${ebookFile.name}`;
+        const fileRef = sRef(storage, filePath);
+        await uploadBytes(fileRef, ebookFile);
+        fileURL = await getDownloadURL(fileRef);
+      }
+
+      const newRef = push(ref(db, 'ebooks'));
+      await set(newRef, { title, description, plan, category, coverURL, fileURL, coverPath, filePath, createdAt: Date.now() });
+
+      allEbooks[newRef.key] = { title, description, plan, category, coverURL, fileURL, coverPath, filePath, createdAt: Date.now() };
+      feedback.textContent = '✅ Ebook adicionado!';
+      feedback.className   = 'ml-4 text-sm text-green-600 dark:text-green-400';
+      document.getElementById('adminAddForm').reset();
+      renderAdminList();
+    } catch (err) {
+      feedback.textContent = '❌ Erro: ' + err.message;
+      feedback.className   = 'ml-4 text-sm text-red-600 dark:text-red-400';
+    }
+  });
+
+  // EDIT EBOOK MODAL
+  const editModal = document.getElementById('editModal');
+  function openEditModal(id) {
+    const e = allEbooks[id];
+    if (!e) return;
+    document.getElementById('editId').value          = id;
+    document.getElementById('editTitle').value       = e.title;
+    document.getElementById('editDescription').value = e.description || '';
+    document.getElementById('editPlan').value        = e.plan || 'basic';
+    document.getElementById('editCategory').value    = e.category || '';
+    document.getElementById('editCover').value       = '';
+    document.getElementById('editFile').value        = '';
+    document.getElementById('editFeedback').classList.add('hidden');
+    editModal.classList.remove('hidden');
+    editModal.classList.add('flex');
+  }
+  document.getElementById('btnEditCancel').addEventListener('click', () => {
+    editModal.classList.add('hidden');
+    editModal.classList.remove('flex');
+  });
+  document.getElementById('btnEditSave').addEventListener('click', async () => {
+    const id          = document.getElementById('editId').value;
+    const title       = document.getElementById('editTitle').value.trim();
+    const description = document.getElementById('editDescription').value.trim();
+    const plan        = document.getElementById('editPlan').value;
+    const category    = document.getElementById('editCategory').value.trim();
+    const coverFile   = document.getElementById('editCover').files[0];
+    const ebookFile   = document.getElementById('editFile').files[0];
+    const fb          = document.getElementById('editFeedback');
+
+    fb.textContent = 'Salvando...';
+    fb.className   = 'text-sm text-gray-500';
+    fb.classList.remove('hidden');
+
+    try {
+      const updates = { title, description, plan, category };
+
+      if (coverFile) {
+        const coverPath = `covers/${Date.now()}_${coverFile.name}`;
+        const coverRef  = sRef(storage, coverPath);
+        await uploadBytes(coverRef, coverFile);
+        updates.coverURL  = await getDownloadURL(coverRef);
+        updates.coverPath = coverPath;
+      }
+      if (ebookFile) {
+        const filePath = `basic/${Date.now()}_${ebookFile.name}`;
+        const fileRef  = sRef(storage, filePath);
+        await uploadBytes(fileRef, ebookFile);
+        updates.fileURL  = await getDownloadURL(fileRef);
+        updates.filePath = filePath;
+      }
+
+      await update(ref(db, `ebooks/${id}`), updates);
+      allEbooks[id] = { ...allEbooks[id], ...updates };
+
+      fb.textContent = '✅ Salvo!';
+      fb.className   = 'text-sm text-green-600 dark:text-green-400';
+      renderAdminList();
+      setTimeout(() => {
+        editModal.classList.add('hidden');
+        editModal.classList.remove('flex');
+      }, 1200);
+    } catch (err) {
+      fb.textContent = '❌ Erro: ' + err.message;
+      fb.className   = 'text-sm text-red-600 dark:text-red-400';
+    }
+  });
+
+  // DELETE EBOOK
+  async function confirmDeleteEbook(id) {
+    if (!confirm('Tem certeza que deseja deletar este ebook? Esta ação não pode ser desfeita.')) return;
+    try {
+      const ebook = allEbooks[id];
+      // Delete Storage files using stored paths
+      if (ebook.filePath) {
+        try { await deleteObject(sRef(storage, ebook.filePath)); } catch { /* already deleted or missing */ }
+      }
+      if (ebook.coverPath) {
+        try { await deleteObject(sRef(storage, ebook.coverPath)); } catch { /* already deleted or missing */ }
+      }
+      await remove(ref(db, `ebooks/${id}`));
+      delete allEbooks[id];
+      renderAdminList();
+    } catch (err) {
+      alert('Erro ao deletar: ' + err.message);
+    }
+  }
+</script>
 </body>
 </html>
